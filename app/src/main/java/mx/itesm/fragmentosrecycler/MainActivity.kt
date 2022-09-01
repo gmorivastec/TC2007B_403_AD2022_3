@@ -1,12 +1,13 @@
 package mx.itesm.fragmentosrecycler
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PizzaFragment.Callback {
 
     lateinit var fragmentitoFragment : FragmentitoFragment
     lateinit var pizzaFragment: PizzaFragment
@@ -73,6 +74,8 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentoActual = supportFragmentManager.findFragmentByTag(TAG_FRAGMENTO)
 
+        // contrato (POO) ?
+
         if(fragmentoActual == fragmentitoFragment){
             fragmentitoFragment.test(this)
         } else {
@@ -88,4 +91,20 @@ class MainActivity : AppCompatActivity() {
 
         private const val TAG_FRAGMENTO = "fragmentito"
     }
+
+    override fun ejecutar() {
+
+        Toast.makeText(
+            this,
+            "INVOCADO DESDE FRAGMENTO",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    fun recyclerActivity(view : View?){
+
+        val intent = Intent(this, RecyclerActivity::class.java)
+        startActivity(intent)
+    }
+
 }
