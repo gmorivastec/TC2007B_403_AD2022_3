@@ -1,12 +1,18 @@
 package mx.itesm.fragmentosrecycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class PerritoAdapter(var perritos : ArrayList<String>) :
+class PerritoAdapter(
+    var perritos : ArrayList<String>,
+    var listener : View.OnClickListener
+    ) :
     RecyclerView.Adapter<PerritoAdapter.PerritoViewHolder>(){
 
     // definamos una clase interna que va a servir
@@ -18,6 +24,7 @@ class PerritoAdapter(var perritos : ArrayList<String>) :
 
         var texto1 : TextView
         var texto2 : TextView
+        var boton : Button
 
         // bloque de inicializacion
         // init block
@@ -26,6 +33,7 @@ class PerritoAdapter(var perritos : ArrayList<String>) :
 
             texto1 = itemView.findViewById(R.id.rowText1)
             texto2 = itemView.findViewById(R.id.rowText2)
+            boton = itemView.findViewById(R.id.rowButton)
         }
     }
 
@@ -36,8 +44,16 @@ class PerritoAdapter(var perritos : ArrayList<String>) :
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.row, parent, false)
 
+        view.setOnClickListener(listener)
 
-        return PerritoViewHolder(view)
+        val viewHolder = PerritoViewHolder(view)
+
+        viewHolder.boton.setOnClickListener {
+
+            Log.wtf("BOTON INTERNO", "BOTON PRESIONADO")
+        }
+
+        return viewHolder
     }
 
     // asociamos una vista en particular con un elemento de nuestra
